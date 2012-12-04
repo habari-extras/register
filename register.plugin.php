@@ -4,23 +4,6 @@ class Register extends Plugin
 {
 
 	/**
-	 * Add update beacon support
-	 */
-	public function action_update_check()
-	{
-		Update::add( 'Register', '57281af4-f709-46d0-8089-6bb327bab3e5', $this->info->version );
-	}
-
-	/**
-	 * Add help text to plugin configuration page
-	 */
-	public function help()
-	{
-		$help = _t( 'Lets people register to become blog users. Administrators can specify which group new users should be placed in. Registration forms can exist on their own page or can be added to an existing theme template using, for example $theme->signup(\'registered\') to add users to the \'registered\' group.');
-		return $help;
-	}
-
-	/**
 	 * Create rewrite rule
 	 */
 	public function action_init()
@@ -29,7 +12,7 @@ class Register extends Plugin
 		$this->add_template('registration', dirname(__FILE__) . '/register.php');
 		$this->add_template('registration.success', dirname(__FILE__) . '/success.php');
 
-		if ( Options::get('register__standalone') ) {
+		if ( Options::get( 'register__standalone', false ) ) {
 			$this->add_rule('"user"/"register"', 'register_page');
 			$this->add_rule('"user"/"register"/"success"', 'register_success');
 		}
@@ -84,38 +67,22 @@ class Register extends Plugin
 
 	}
 
-	/**
-	 * Create plugin configuration
-	 */
-	public function filter_plugin_config( $actions, $plugin_id )
+	public function configure()
 	{
-		if ( $plugin_id == $this->plugin_id() ) {
-			$actions[] = _t('Configure');
+		$form = new FormUI( strtolower( get_class( $this ) ) );
+
+		$form->append( 'checkbox', 'standalone', 'register__standalone', sprintf( _t( 'Show standalone <a href="%s">registration form</a>' ), URL::get('register_page') ) );
+
+		$groups = UserGroups::get_all();
+		$options = array();
+		foreach ( $groups as $group ) {
+			$options[$group->id] = $group->name;
 		}
-		return $actions;
-	}
+		$form->append( 'select', 'group', strtolower( get_class( $this ) ) . '__group', _t('Default group:'), $options );
 
-	public function action_plugin_ui( $plugin_id, $action )
-	{
-		if ( $plugin_id == $this->plugin_id() ) {
-			switch ( $action ) {
-				case _t('Configure') :
-					$form = new FormUI( strtolower( get_class( $this ) ) );
-
-					$form->append( 'checkbox', 'standalone', 'register__standalone', sprintf( _t( 'Show standalone <a href="%s">registration form</a>' ), URL::get('register_page') ) );
-
-					$groups = UserGroups::get_all();
-					$options = array();
-					foreach ( $groups as $group ) {
-						$options[$group->id] = $group->name;
-					}
-					$form->append( 'select', 'group', strtolower( get_class( $this ) ) . '__group', _t('Default group:'), $options );
-
-					$form->append( 'submit', 'save', _t('Save') );
-					$form->out();
-					break;
-			}
-		}
+		$form->append( 'submit', 'save', _t('Save') );
+		$form->out();
+		break;
 	}
 
 	public function get_form( $group = null)
