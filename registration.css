@@ -1,19 +1,19 @@
 /* ==TOP */
-body {
+body.register {
 	background-color:#F0F0F0;
 	color:#000000;
 	font-family: "Helvetica Neue", Helvetica, "Lucida Grande", Arial, Verdana, Sans-Serif;
 	font-size:95%;
 }
 
-#page {
+.register #page {
 	background:transparent url('../../../system/admin/images/loginbg.png') no-repeat scroll center -56px;
 	margin:0;
 	min-height:536px;
 }
 
 
-#page .container {
+.register #page .container {
 	background:transparent none repeat scroll 0 0;
 	border:medium none;
 	margin:auto;
@@ -22,7 +22,7 @@ body {
 }
 
 /* ==GENERAL */
-* {
+.register * {
 	border:0 none;
 	font-size:100%;
 	font-style:inherit;
@@ -32,18 +32,18 @@ body {
 	vertical-align:baseline;
 }
 
-a {
+.register a {
 	color:#333333;
 	text-decoration:none;
 }
 
-a:hover, a:active, a:focus {
+.register a:hover, .register a:active, .register a:focus {
 	text-decoration:underline;
 }
 
 
 /* ==HEADER */
-h1 {
+.register h1 {
 	-x-system-font:none;
 	font-size:3.5em;
 	font-size-adjust:none;
@@ -58,12 +58,12 @@ h1 {
 }
 
 /* ==FORM */
-form div {
+.register form div {
 	margin:0 0 15px 0;
 }
 
 /* ===INPUTS */
-input[type=text], input[type=password], label.overcontent {
+.register input[type=text], .register input[type=password], .register label.overcontent {
 	width: 100%;
 	padding: 3px 5px;
 	margin: 0 auto;
@@ -76,7 +76,7 @@ input[type=text], input[type=password], label.overcontent {
 }
 
 /* ===LABELS */
-label.overcontent {
+.register label.overcontent {
 	cursor:text;
 	font-weight:normal;
 	position:absolute;
@@ -86,7 +86,7 @@ label.overcontent {
 	border:none;
 }
 
-label.abovecontent {
+.register label.abovecontent {
 	font-size: 9px;
 	line-height: 10px;
 	background: #d4d4d4;
@@ -104,7 +104,7 @@ label.abovecontent {
 }
 
 /* ===ERRORS */
-ul.error, ul.error li {
+.register ul.error, .register ul.error li {
 	list-style:none;
 	font-size:85%;
 	color:#F00;
@@ -113,7 +113,7 @@ ul.error, ul.error li {
 }
 
 /* ===SUBMIT */
-#page input[type=button], #page input[type=submit], #page button {
+.register #page input[type=button], .register #page input[type=submit], .register #page button {
 	padding: 2px 4px 2px 4px;
 	cursor: pointer;
 	-webkit-border-radius: 9px;		/* Webkit only supports up to 9px at present */
@@ -126,7 +126,7 @@ ul.error, ul.error li {
 	width:100px;
 }
 
-#page input[type=button]:hover, #page input[type=submit]:hover, #page button:hover {
+.register #page input[type=button]:hover, .register #page input[type=submit]:hover, .register #page button:hover {
 	border: 1px solid #555;
 	background-position: 0 -30px;
 
