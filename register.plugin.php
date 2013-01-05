@@ -27,7 +27,7 @@ class Register extends Plugin
 	{
 
 		if ( User::identify()->loggedin ) {
-			Session::notice( sprintf( _t( 'You are already logged in as %s' ), User::identify()->displayname ) );
+			Session::notice( sprintf( _t( 'You are already logged in as %s', __CLASS__ ), User::identify()->displayname ) );
 			Utils::redirect( Site::get_url( 'admin' ), false);
 		}
 
@@ -71,14 +71,14 @@ class Register extends Plugin
 	{
 		$form = new FormUI( strtolower( get_class( $this ) ) );
 
-		$form->append( 'checkbox', 'standalone', 'register__standalone', sprintf( _t( 'Show standalone <a href="%s">registration form</a>' ), URL::get('register_page') ) );
+		$form->append( 'checkbox', 'standalone', 'register__standalone', sprintf( _t( 'Show standalone <a href="%s">registration form</a>', __CLASS__ ), URL::get('register_page') ) );
 
 		$groups = UserGroups::get_all();
 		$options = array();
 		foreach ( $groups as $group ) {
 			$options[$group->id] = $group->name;
 		}
-		$form->append( 'select', 'group', strtolower( get_class( $this ) ) . '__group', _t('Default group:'), $options );
+		$form->append( 'select', 'group', strtolower( get_class( $this ) ) . '__group', _t('Default group:', __CLASS__), $options );
 
 		$form->append( 'submit', 'save', _t('Save') );
 		$form->out();
@@ -97,16 +97,16 @@ class Register extends Plugin
 		$form = new FormUI('registration');
 		$form->class[] = 'registration';
 
-		$form->append('text', 'email', 'null:null', _t('Email'), 'formcontrol_text');
+		$form->append('text', 'email', 'null:null', _t('Email', __CLASS__), 'formcontrol_text');
 		$form->email->add_validator('validate_email');
-		$form->append('text', 'username', 'null:null', _t('Username'), 'formcontrol_text');
+		$form->append('text', 'username', 'null:null', _t('Username', __CLASS__), 'formcontrol_text');
 		$form->username->add_validator('validate_required');
 		$form->username->add_validator('validate_username');
 
-		$form->append('password', 'password', 'null:null', _t('Password'), 'formcontrol_password');
+		$form->append('password', 'password', 'null:null', _t('Password', __CLASS__), 'formcontrol_password');
 		$form->password->add_validator('validate_required');
 
-		$form->append('password', 'password_confirmation', 'null:null', _t('Confirm Password'), 'formcontrol_password');
+		$form->append('password', 'password_confirmation', 'null:null', _t('Confirm Password', __CLASS__), 'formcontrol_password');
 		$form->password_confirmation->add_validator('validate_required');
 		$form->password_confirmation->add_validator('validate_same', $form->password);
 
@@ -114,7 +114,7 @@ class Register extends Plugin
 		$form->set_option('group_name', $group);
 
 		// Create the Register button
-		$form->append('submit', 'register', _t('Register'), 'formcontrol_submit');
+		$form->append('submit', 'register', _t('Register', __CLASS__), 'formcontrol_submit');
 
 		$form->on_success( array( $this, 'register_user' ) );
 
@@ -135,7 +135,7 @@ class Register extends Plugin
 				Utils::redirect(URL::get('register_success'), false);
 			}
 			else {
-				Session::notice( sprintf( _t( "Added user '%s'" ), $form->username ) );
+				Session::notice( sprintf( _t( "Added user '%s'", __CLASS__ ), $form->username ) );
 			}
 		}
 		else {

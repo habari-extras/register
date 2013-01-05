@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title><?php echo sprintf( _t( 'Register on %s' ), Options::get('title') ); ?></title>
+	<title><?php echo sprintf( _t( 'Register on %s', __CLASS__ ), Options::get('title') ); ?></title>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="generator" content="Habari">
@@ -14,10 +14,10 @@
 
 	<div id="page">
 
-		<h1><a href="<?php Site::out_url('habari'); ?>" title="<?php _e('Go to Site'); ?>"><?php Options::out('title'); ?></a></h1>
+		<h1><a href="<?php Site::out_url('habari'); ?>" title="<?php _e('Go to Site', __CLASS__); ?>"><?php Options::out('title'); ?></a></h1>
 
 		<div class="container">
-			<p>Congratulations, <strong><?php echo $user->displayname; ?></strong>, you have successfully registered. Feel free to <a href="<?php Site::out_url('habari'); ?>" title="<?php _e('Go to Site'); ?>">return to the site</a>.</p>
+			<p><?php _e('Congratulations, <strong>%s</strong>, you have successfully registered. Feel free to %sreturn to the site</a>.', array($user->displayname, '<a href="' . Site::get_url('habari') . '" title="' . _t('Go to Site', __CLASS__) . '">'), __CLASS__); ?></p>
 		</div>
 
 	</div>
