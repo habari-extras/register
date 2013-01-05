@@ -82,7 +82,6 @@ class Register extends Plugin
 
 		$form->append( 'submit', 'save', _t('Save') );
 		$form->out();
-		break;
 	}
 
 	public function get_form( $group = null)
