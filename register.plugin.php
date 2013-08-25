@@ -132,11 +132,15 @@ class Register extends Plugin
 
 			if ( $form->get_option('standalone') ) {
 				$user->remember();
-				Utils::redirect(URL::get('register_success'), false);
+				$redirect = URL::get('register_success');
 			}
 			else {
 				Session::notice( sprintf( _t( "Added user '%s'", __CLASS__ ), $form->username ) );
+				$redirect = "";
 			}
+			// Let plugins alter the redirect location. Yes, the string is loooong, but it's propably unique, too.
+			$redirect = Plugins::filter( 'register_user_success_redirect_location', $redirect, $form);
+			Utils::redirect($redirect);
 		}
 		else {
 			$dberror = DB::get_last_error();
